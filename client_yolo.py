@@ -49,6 +49,9 @@ confidences = list(results[:, -2].numpy().astype(float))
 for lbl, bbx, conf in zip(labels, bboxes, confidences):
     x1, y1, x2, y2 = bbx
     img_orig = cv2.rectangle(img_orig, (x1, y1), (x2, y2), [0, 0, 255], 2)
+    img_orig = cv2.putText(
+        img_orig, str(lbl), (x1, y1 - 10), cv2.FONT_HERSHEY_SIMPLEX, 1.4, [0, 0, 255], 2
+    )
 
 cv2.imshow("zidane", img_orig)
 cv2.waitKey(0)
