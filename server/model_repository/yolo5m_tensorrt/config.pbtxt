@@ -1,4 +1,4 @@
-name: "yolo5m"
+name: "yolo5m_tensorrt"
 platform: "tensorrt_plan"
 max_batch_size: 1
 
