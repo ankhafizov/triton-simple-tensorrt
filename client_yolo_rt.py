@@ -36,7 +36,7 @@ output_names = [
     "num_detections",
 ]
 
-model_name = "yolo5mrt"
+model_name = "yolo5m_rt_with_nms"
 url = "localhost:8000"
 model_version = "1"
 VERBOSE = False

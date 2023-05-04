@@ -6,18 +6,21 @@ import torch
 from time import time
 
 
+
+input_name = "images"
+output_name = "output0"
+model_name = "yolo5m_torchscript" # "yolo5m_torchscript", "yolo5m_tensorrt"
+precision = "FP32" # "FP32", "FP16"
+
 img = cv2.imread("data/zidane.jpg")
 img = cv2.resize(img, (640, 640))
 img_orig = img.copy()
 
 img = img.transpose((2, 0, 1))[::-1]
-img = img.astype(np.float16)
+img = img.astype(np.float32 if precision == "FP32" else np.float16)
 img /= 255
 img = img[None]
 
-input_name = "images"
-output_name = "output0"
-model_name = "yolo5m"
 url = "localhost:8000"
 model_version = "1"
 VERBOSE = False
@@ -27,7 +30,7 @@ triton_client = tritonhttpclient.InferenceServerClient(url=url, verbose=VERBOSE)
 times = []
 for i in range(100):
     st = time()
-    input0 = tritonhttpclient.InferInput(input_name, img.shape, "FP16")
+    input0 = tritonhttpclient.InferInput(input_name, img.shape, precision)
     input0.set_data_from_numpy(img)
 
     output = tritonhttpclient.InferRequestedOutput(output_name)
@@ -40,7 +43,7 @@ for i in range(100):
     results = non_max_suppression(results, 0.3, 0.4)[0]
     times.append((time() - st) * 1000)
 
-print(f"inferense time trt: mean {np.mean(times):.1f} ms, std: {np.std(times):.1f} ms")
+print(f"inferense time: mean {np.mean(times):.1f} ms, std: {np.std(times):.1f} ms")
 
 # labels = [lbl for lbl in results[:, -1].numpy()]
 # bboxes = list(results[:, :-2].numpy().astype(int))
