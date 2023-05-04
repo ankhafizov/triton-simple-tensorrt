@@ -59,24 +59,24 @@ print(f"inferense time trt: mean {np.mean(times):.1f} ms, std {np.std(times):.1f
 
 # ---------------------------- Parcing results -------------------------------
 
-results = {}
+# results = {}
 
-num_detections = response.as_numpy("num_detections")[0][0]
-for name in ["detection_boxes", "detection_classes", "detection_scores"]:
-    results[name] = response.as_numpy(name)[0][:num_detections]
+# num_detections = response.as_numpy("num_detections")[0][0]
+# for name in ["detection_boxes", "detection_classes", "detection_scores"]:
+#     results[name] = response.as_numpy(name)[0][:num_detections]
 
-for bbx, lbl, conf in zip(
-    results["detection_boxes"],
-    results["detection_classes"],
-    results["detection_scores"],
-):
-    bbx = scale_boxes((img_size, img_size), bbx, img_orig.shape)
+# for bbx, lbl, conf in zip(
+#     results["detection_boxes"],
+#     results["detection_classes"],
+#     results["detection_scores"],
+# ):
+#     bbx = scale_boxes((img_size, img_size), bbx, img_orig.shape)
 
-    x1, y1, x2, y2 = bbx.astype(int)
-    img_orig = cv2.rectangle(img_orig, (x1, y1), (x2, y2), [0, 0, 255], 2)
-    img_orig = cv2.putText(
-        img_orig, str(lbl), (x1, y1 - 10), cv2.FONT_HERSHEY_SIMPLEX, 1.4, [0, 0, 255], 2
-    )
+#     x1, y1, x2, y2 = bbx.astype(int)
+#     img_orig = cv2.rectangle(img_orig, (x1, y1), (x2, y2), [0, 0, 255], 2)
+#     img_orig = cv2.putText(
+#         img_orig, str(lbl), (x1, y1 - 10), cv2.FONT_HERSHEY_SIMPLEX, 1.4, [0, 0, 255], 2
+#     )
 
-cv2.imshow("zidane", img_orig)
-cv2.waitKey(0)
+# cv2.imshow("zidane", img_orig)
+# cv2.waitKey(0)

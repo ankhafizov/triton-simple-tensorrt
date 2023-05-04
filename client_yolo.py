@@ -42,16 +42,16 @@ for i in range(100):
 
 print(f"inferense time trt: mean {np.mean(times):.1f} ms, std: {np.std(times):.1f} ms")
 
-labels = [lbl for lbl in results[:, -1].numpy()]
-bboxes = list(results[:, :-2].numpy().astype(int))
-confidences = list(results[:, -2].numpy().astype(float))
+# labels = [lbl for lbl in results[:, -1].numpy()]
+# bboxes = list(results[:, :-2].numpy().astype(int))
+# confidences = list(results[:, -2].numpy().astype(float))
 
-for lbl, bbx, conf in zip(labels, bboxes, confidences):
-    x1, y1, x2, y2 = bbx
-    img_orig = cv2.rectangle(img_orig, (x1, y1), (x2, y2), [0, 0, 255], 2)
-    img_orig = cv2.putText(
-        img_orig, str(lbl), (x1, y1 - 10), cv2.FONT_HERSHEY_SIMPLEX, 1.4, [0, 0, 255], 2
-    )
+# for lbl, bbx, conf in zip(labels, bboxes, confidences):
+#     x1, y1, x2, y2 = bbx
+#     img_orig = cv2.rectangle(img_orig, (x1, y1), (x2, y2), [0, 0, 255], 2)
+#     img_orig = cv2.putText(
+#         img_orig, str(lbl), (x1, y1 - 10), cv2.FONT_HERSHEY_SIMPLEX, 1.4, [0, 0, 255], 2
+#     )
 
-cv2.imshow("zidane", img_orig)
-cv2.waitKey(0)
+# cv2.imshow("zidane", img_orig)
+# cv2.waitKey(0)
