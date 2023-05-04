@@ -1,0 +1,14 @@
+services:
+  triton_trt:
+    build: ./server
+    ports:
+      - 8000:8000
+      - 8002:8002
+    shm_size: '1gb'
+    restart: always
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - capabilities: [ gpu ]
+    container_name: simple_triton_trt
